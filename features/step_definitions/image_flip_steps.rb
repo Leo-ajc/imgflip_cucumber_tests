@@ -17,17 +17,35 @@ When "upload a photo template" do
 end
 
 When "add top and bottom sentences" do
-  find('textarea[placeholder="TOP TEXT"]').set('topText')
-  find('textarea[placeholder="BOTTOM TEXT"]').set('bottomText')
+  @dummy_top_text = 'foo'
+  @dummy_bottom_text = 'bar'
+  find('textarea[placeholder="TOP TEXT"]').set(@dummy_top_text)
+  find('textarea[placeholder="BOTTOM TEXT"]').set(@dummy_bottom_text)
 end
 
 Then "create a preview" do
-  find('#mm-settings > div.gen-wrap.clearfix > div.mm-generate.b.but').click
-  generated_html = find('#doneUrl > div:nth-child(3) > input').value
-  #generated_html = page.all(:css, '.img-code.html').first.value
+  find('#mm-settings > div.gen-wrap.clearfix > div.mm-generate.b.but').click # Show Preview
 
+  binding.pry
+  generated_html = find('#doneUrl > div:nth-child(3) > input').value # share html embed field
+  html_fragment_errors = Nokogiri::HTML5.fragment(generated_html).errors
+  expect(html_fragment_errors.length).to eq(0)
+
+  find('#doneLinks > a').click
 end
 
 Then "the image is stored and referenced correctly" do
-  pending # Write code here that turns the phrase above into concrete actions
+  # Normally I would exactly specify the element to test.
+  # However ImgFlip has shitty HTML markup.
+  # This is my compromise to both specificity and sensitivity.
+
+  # image description on the right contains the custom phrases used to create the meme.
+  image_description = find('#fPanel').text.downcase  # ImgFlip upcases both top and bottom text
+  expect(image_description).to match(@dummy_top_text)
+  expect(image_description).to match(@dummy_bottom_text)
+
+  # Verify that the title matches the meme template
+  image_title = find('#im')['alt'].downcase # ImgFlip upcases both top and bottom text
+  expect(image_title).to match(@dummy_top_text)
+  expect(image_title).to match(@dummy_bottom_text)
 end
