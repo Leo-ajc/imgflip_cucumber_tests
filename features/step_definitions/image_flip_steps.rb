@@ -26,6 +26,9 @@ end
 Then "create a preview" do
   find('#mm-settings > div.gen-wrap.clearfix > div.mm-generate.b.but').click # Show Preview
 
+  wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+  wait.until { find('#doneUrl > div:nth-child(3) > input') }
+
   generated_html = find('#doneUrl > div:nth-child(3) > input').value # share html embed field
   html_fragment_errors = Nokogiri::HTML5.fragment(generated_html).errors
   expect(html_fragment_errors.length).to eq(0)

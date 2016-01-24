@@ -13,6 +13,7 @@ Feature: ImageFlip Meme Creation
   template. Also verify that the image description on the right contains
   the custom phrases used to create the meme.
 
+  @javascript
   Scenario: Make Meme
     Given I visit imgflip.com
     When I click the meme creation tool
