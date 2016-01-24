@@ -10,7 +10,7 @@ end
 When "upload a photo template" do
   find('#mm-show-upload').click # Click to reveal upload controls.
   #WTF shitty HTML
-
+  #binding.pry
   page.attach_file('mm-upload-file', File.absolute_path('./assets/long_cat_is_long.jpg'))
   fill_in 'customName', with: 'foo'
   click_button 'Upload'
@@ -26,7 +26,6 @@ end
 Then "create a preview" do
   find('#mm-settings > div.gen-wrap.clearfix > div.mm-generate.b.but').click # Show Preview
 
-  binding.pry
   generated_html = find('#doneUrl > div:nth-child(3) > input').value # share html embed field
   html_fragment_errors = Nokogiri::HTML5.fragment(generated_html).errors
   expect(html_fragment_errors.length).to eq(0)
@@ -48,4 +47,8 @@ Then "the image is stored and referenced correctly" do
   image_title = find('#im')['alt'].downcase # ImgFlip upcases both top and bottom text
   expect(image_title).to match(@dummy_top_text)
   expect(image_title).to match(@dummy_bottom_text)
+
+  puts '**************************************************************************'
+  puts page.current_url
+  puts '**************************************************************************'
 end
