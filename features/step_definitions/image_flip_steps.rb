@@ -17,11 +17,15 @@ When "upload a photo template" do
 end
 
 When "add top and bottom sentences" do
-  pending # Write code here that turns the phrase above into concrete actions
+  find('textarea[placeholder="TOP TEXT"]').set('topText')
+  find('textarea[placeholder="BOTTOM TEXT"]').set('bottomText')
 end
 
 Then "create a preview" do
-  pending # Write code here that turns the phrase above into concrete actions
+  find('#mm-settings > div.gen-wrap.clearfix > div.mm-generate.b.but').click
+  generated_html = find('#doneUrl > div:nth-child(3) > input').value
+  #generated_html = page.all(:css, '.img-code.html').first.value
+
 end
 
 Then "the image is stored and referenced correctly" do
