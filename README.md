@@ -2,7 +2,7 @@
 
 ImgFlip is a really crappy website. 
 
-![Semantic Fry](https://imgflip.com/i/xxqnb)
+![Semantic Fry](https://i.imgflip.com/xxqnb.jpg)
 
 Thanks guys! I really enjoyed spending a couple of hours testing the 
 world's crappiest website. 
