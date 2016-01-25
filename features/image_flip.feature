@@ -19,6 +19,6 @@ Feature: ImageFlip Meme Creation
     When I click the meme creation tool
     And upload a photo template
     And add top and bottom sentences
-    Then create a preview
+    Then I create a preview
     And the image is stored and referenced correctly
 
